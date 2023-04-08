@@ -1,5 +1,5 @@
 
-local gui = game:GetService("InsertService"):LoadAsset(13043557348)
+local gui = game:GetService("InsertService"):LoadAsset(13043984134)
 gui.ScreenGui.ResetOnSpawn = false
 local remote1 = Instance.new("RemoteEvent", game:GetService("VoiceChatService"))
 remote1.Name = "VoiceRequest"
